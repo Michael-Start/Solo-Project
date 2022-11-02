@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
@@ -11,12 +11,25 @@ const Create = () => {
     const[errors, setErrors] = useState([])
     const navigate = useNavigate()
 
+
+    useEffect(()=>{
+        
+        axios.get('https://api.thecatapi.com/v1/images/search', { params: { limit:1, size:"full" } } )
+        .then(res=>{
+            setPicture(res.data[0].url)
+            console.log(res.data)
+        })
+        .catch(err=>console.log(err))
+    },[0])
+    
+
     const getCat = (e)=>{
         e.preventDefault();
         axios.get('https://api.thecatapi.com/v1/images/search', { params: { limit:1, size:"full" } } )
         .then(res=>{
             setPicture(res.data[0].url)
             console.log(res.data)
+            console.log(res.data[0].url)
         })
         .catch(err=>console.log(err))
     }
@@ -26,6 +39,10 @@ const Create = () => {
         axios.post('http://localhost:8000/api/v1/cats',{
             picture,
             caption
+        })
+        .then(res =>{
+            console.log(res)
+            navigate('/list')
         })
         .catch(err=>{
             console.log(err)
@@ -41,15 +58,25 @@ const Create = () => {
   return (
     <div>
         <h1>Find a Cute Kitty!</h1>
-    <div class = "w-50 p-3, h-50 d-inline-block" >
-        <Image class = 'img-fluid' src= {picture} alt='A heckin floofer'></Image>
+    <div className = "w-50 p-3, h-50 " >
+        <Image className = 'img-fluid' src= {picture} alt='A heckin floofer'></Image>
     </div>
-    <Button onClick= {getCat} variant = "primary"  >Get a Cat!</Button>
+    <Button onClick= {getCat} variant = "primary">Get a Cat!</Button>
     <div>
-        <Form.Label onSubmit={onSubmitHandler}>Add a Caption: </Form.Label>
-            <Form.Control
-            type= 'text-area'/>
-
+        <form onSubmit = {onSubmitHandler}>
+        <label>Add a Caption: </label>
+            {errors.map((err,index)=><p key = {index}>{err}</p>)}
+            <input type="hidden" value = {picture} />
+            <input type = 'text' onChange={(e)=> setCaption(e.target.value)}/>
+        <div>
+        <Form.Text muted>
+            *8 characters required
+        </Form.Text>
+        </div>
+        <div>
+        <Button variant ='primary' type = 'submit'>Save This Kitty!</Button>
+        </div>
+        </form>
     </div>
     <div>
         <Link to = '/list'>All the Saved Kitties!</Link>
