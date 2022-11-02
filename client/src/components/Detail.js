@@ -3,6 +3,7 @@ import axios from 'axios';
 import {useParams, useNavigate, Link} from 'react-router-dom';
 import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
 
 const Detail = () => {
     const[cat, setCat] = useState({});
@@ -52,6 +53,8 @@ const Detail = () => {
   return (
     <div>
         <h1>Edit Picture</h1>
+        <div className='list'>
+        <Card style ={{width:'18rem'}}>
         <Image src = {cat.picture}></Image>
         <form onSubmit={handleUpdate}>
             {errors.map((err,index)=> <p key={index}>{err}</p>)}
@@ -61,6 +64,11 @@ const Detail = () => {
             <Button type = 'submit'>Update Caption</Button>
         </form>
         <Button onClick = {handleDelete}>Delete Picture</Button>
+        </Card>
+        </div>
+        <div>
+            <Link to = '/list'>Back to my Kitties!</Link>
+        </div>
     </div>
   )
 }
