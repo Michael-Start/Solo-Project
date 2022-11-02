@@ -1,17 +1,17 @@
 const Cats = require('../models/cats.model');
 const {request, response} = require('express');
-const { findOneAndUpdate } = require('../models/cats.model');
+
 
 const CatsController = {
     // Create description
     create:(req,res)=>{
-        const{caption} =req.body;
+        const{caption, picture} =req.body;
         Cats.create({
-            caption:caption
+            caption:caption,
+            picture:picture
         })
         .then(cat=>res.json(cat))
         .catch(err=>res.status(400).json(err))
-        console.log('caption')
     },
     
     //Read All
@@ -29,12 +29,10 @@ const CatsController = {
         .then(cat=>
             res.json(cat))
             .catch(err=>res.status(400).json(err))
-        console.log('one')
     },
     //Update
     update:(req,res)=>{
-        console.log('update')
-        Cats/findOneAndUpdate({_id:req.params.id}, req.body,{new:true, runValidators:true})
+        Cats.findOneAndUpdate({_id:req.params.id}, req.body,{new:true, runValidators:true})
         .then(updatedCaption =>res.json(updatedCaption))
         .catch(err=>res.status(400).json(err))
     },
@@ -43,7 +41,6 @@ const CatsController = {
         Cats.deleteOne({_id:req.params.id})
         .then(deleteConfirmation=> res.json(deleteConfirmation))
         .catch(err=>res.json(err))
-        console.log('delete')
     }
 
 }
