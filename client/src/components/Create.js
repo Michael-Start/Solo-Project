@@ -5,6 +5,9 @@ import {Button} from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 import Form from 'react-bootstrap/Form'
 import Card from 'react-bootstrap/Card'
+import Container from 'react-bootstrap/Container';
+import  CardGroup  from 'react-bootstrap/CardGroup'
+import NavBar from 'react-bootstrap/Navbar'
 
 const Create = () => {
     const [ caption, setCaption] = useState('')
@@ -57,9 +60,15 @@ const Create = () => {
     }
 
   return (
-    <div>
-        <h1>Find a Cute Kitty!</h1>
-        <Card style = {{width:'18rem'}} >
+    <div className='App'>
+        <NavBar bg= 'primary' variant ='light'>
+        <Container>
+            <NavBar.Brand className='NavBar text-white'>Find a Cute Kitty!</NavBar.Brand>
+            <Link to = '/list' className='text-white'>All the Saved Kitties!</Link>
+        </Container>
+        </NavBar>
+        <Container className='bg-success d-inline-flex justify-content-center'>
+        <Card style = {{width:'18rem'}} className= 'text-center p2 bg-primary card'>
         <div>
             <Image className = 'img-fluid' src= {picture} alt='A heckin floofer'></Image>
         </div>
@@ -83,9 +92,7 @@ const Create = () => {
         </form>
         </div>
         </Card>
-        <div>
-            <Link to = '/list'>All the Saved Kitties!</Link>
-        </div>
+        </Container>
     </div>
   )
 }

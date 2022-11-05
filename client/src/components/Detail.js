@@ -4,6 +4,8 @@ import {useParams, useNavigate, Link} from 'react-router-dom';
 import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
+import NavBar from 'react-bootstrap/Navbar'
+import Container from 'react-bootstrap/Container';
 
 const Detail = () => {
     const[cat, setCat] = useState({});
@@ -52,9 +54,15 @@ const Detail = () => {
 
   return (
     <div>
-        <h1>Edit Picture</h1>
+        <NavBar bg= 'primary' variant ='light'>
+        <Container>
+        <NavBar.Brand className='NavBar text-white'>Edit Picture</NavBar.Brand>
+        <Link to = '/list' className='text-white'>Back to my Kitties!</Link>
+        </Container>
+        </NavBar>
+        <Container className='bg-success d-inline-flex justify-content-center'>
         <div className='list'>
-        <Card style ={{width:'18rem'}}>
+        <Card style ={{width:'18rem'}} className= 'text-center p2 bg-primary card'>
         <Image src = {cat.picture}></Image>
         <form onSubmit={handleUpdate}>
             {errors.map((err,index)=> <p key={index}>{err}</p>)}
@@ -66,9 +74,7 @@ const Detail = () => {
         <Button onClick = {handleDelete}>Delete Picture</Button>
         </Card>
         </div>
-        <div>
-            <Link to = '/list'>Back to my Kitties!</Link>
-        </div>
+        </Container>
     </div>
   )
 }

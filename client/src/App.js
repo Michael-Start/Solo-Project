@@ -5,10 +5,13 @@ import Detail from './components/Detail'
 import List from './components/List'
 import Create from './components/Create'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ThemeProvider } from 'react-bootstrap';
 
 
 function App() {
   return (
+    <ThemeProvider   breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+    minBreakpoint="xxs">
     <div className='App'>
       <BrowserRouter>
         <Routes>
@@ -18,6 +21,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
+    </ThemeProvider>
   );
 }
 

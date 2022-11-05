@@ -1,11 +1,18 @@
 .App {
-  text-align: center;
-  align-items: center;
+  background-color: burlywood;
+  height: max-content;
 }
 
-.list{
-  /* display: flex; */
-  justify-content: center;
+.card{ display: flex; 
+  margin: 15px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+
+.NavBar{
+  color:aliceblue
 }
 
 /* .link{
